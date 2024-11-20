@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# Function to perform bubble sort
+bubble_sort() {
+  arr=("$@")
+  n=${#arr[@]}
+  
+  for ((i = 0; i < n-1; i++)); do
+    for ((j = 0; j < n-i-1; j++)); do
+      if [ "${arr[j]}" -gt "${arr[j+1]}" ]; then
+        # Swap the elements
+        temp=${arr[j]}
+        arr[j]=${arr[j+1]}
+        arr[j+1]=$temp
+      fi
+    done
+  done
+  
+  echo "Sorted array (Bubble Sort): ${arr[@]}"
+}
+
+# Function to perform insertion sort
+insertion_sort() {
+  arr=("$@")
+  n=${#arr[@]}
+  
+  for ((i = 1; i < n; i++)); do
+    key=${arr[i]}
+    j=$((i-1))
+    
+    while [[ $j -ge 0 && ${arr[j]} -gt $key ]]; do
+      arr[j+1]=${arr[j]}
+      j=$((j-1))
+    done
+    
+    arr[j+1]=$key
+  done
+  
+  echo "Sorted array (Insertion Sort): ${arr[@]}"
+}
+
+# Function to perform selection sort
+selection_sort() {
+  arr=("$@")
+  n=${#arr[@]}
+  
+  for ((i = 0; i < n-1; i++)); do
+    min_idx=$i
+    for ((j = i+1; j < n; j++)); do
+      if [ "${arr[j]}" -lt "${arr[min_idx]}" ]; then
+        min_idx=$j
+      fi
+    done
+    # Swap the elements
+    temp=${arr[min_idx]}
+    arr[min_idx]=${arr[i]}
+    arr[i]=$temp
+  done
+  
+  echo "Sorted array (Selection Sort): ${arr[@]}"
+}
+
+# Main script execution
+echo "Enter numbers separated by spaces:"
+read -a input_array
+
+echo "Choose the sorting method:"
+echo "1. Bubble Sort"
+echo "2. Insertion Sort"
+echo "3. Selection Sort"
+
+read choice
+
+case $choice in
+  1) bubble_sort "${input_array[@]}" ;;
+  2) insertion_sort "${input_array[@]}" ;;
+  3) selection_sort "${input_array[@]}" ;;
+  *) echo "Invalid choice." ;;
+esac

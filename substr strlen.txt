@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Function to check the length of the string
+check_length() {
+  echo "Length of the string: ${#1}"
+}
+
+# Function to check if the substring exists in the string
+check_substring() {
+  if [[ "$1" == "$2" ]]; then
+    echo "The substring '$2' exists in the string."
+  else
+    echo "The substring '$2' does not exist in the string."
+  fi
+}
+
+# Main script execution
+echo "Enter the main string:"
+read main_string
+
+echo "Choose an option:"
+echo "1. Check length of the string"
+echo "2. Check if a substring exists in the string"
+
+read choice
+
+case $choice in
+  1) check_length "$main_string" ;;
+  2) 
+     echo "Enter the substring to search:"
+     read substring
+     check_substring "$main_string" "$substring"
+     ;;
+  *) echo "Invalid choice." ;;
+esac
